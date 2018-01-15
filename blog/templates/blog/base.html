@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+    <!-- Bootstrap -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    <!-- Medium Style Editor - dodaje okienko do wyboru opcji pisania -->
+      <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+      <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+    <!-- Custom CSS -->
+      <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <!-- Fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet">
+
+  </head>
+  <body class="loader">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light techfont">
+      <a class="navbar-brand" mb-0 h1><img src="{% static 'media/RS.png' %}" width="70" height="70" alt=""></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'post_list' %}">My Blog<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://www.github.com/Sevil37">GitHub</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about' %}">About Me</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav nav-justify-content-end">
+          {% if user.is_authenticated %}
+            <li>
+              <a class="nav-link" href="{% url 'post_new' %}">New Post</a>
+            </li>
+            <li>
+              <a class="nav-link" href="{% url 'post_draft_list' %}">Drafts</a>
+            </li>
+            <li>
+              <a class="nav-link">Welcome: {{user.username}}</a>
+            </li>
+            <li>
+              <a class="nav-link" href="{% url 'logout' %}">(Log Out)</a>
+            </li>
+
+          {% else%}
+            <li><a class="navbar-nav justify-content-end" href="{% url 'login' %}">Log in</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    <!-- CONTENT BLOCK -->
+      <div class="content container">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="blog_posts">
+              {% block content %}
+              {% endblock %}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+   <script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
+  </body>
+</html>

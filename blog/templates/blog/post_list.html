@@ -4,8 +4,13 @@
   {% for post in post_list %}
   <div class="post">
     <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title}}</a></h1>
+    {% if post.image %}
+    <p><img src="{{ post.image.url }}" class="img-fluid"></p>
+    {% endif %}
+    <p>{{post.text|truncatewords:100|safe|linebreaksbr}}</p>
+    <p><a href="{% url 'post_detail' pk=post.pk %}">Czytaj całość...</a></p>
     <div class="date">
-      <p>Published on: {{post.published_date|date:"D M Y"}}</p>
+      Published on: {{post.published_date|date:"D M Y"}}
     </div>
       <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{post.comments.count}}</a>
     </div>

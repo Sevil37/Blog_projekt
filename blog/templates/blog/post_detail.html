@@ -19,8 +19,8 @@
 
   <hr>
   <a class="btn btn-primary btn-comment" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
-
   <div class="container">
+
     {% for comment in post.comments.all %}
     <br>
       {% if user.is_authenticated or comment.approved_comment %}
